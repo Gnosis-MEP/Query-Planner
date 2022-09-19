@@ -4,6 +4,7 @@ from event_service_utils.streams.redis import RedisStreamFactory
 from query_planner.service import QueryPlanner
 
 from query_planner.conf import (
+    QOS_RANKER_CLASS,
     REDIS_ADDRESS,
     REDIS_PORT,
     PUB_EVENT_LIST,
@@ -27,6 +28,7 @@ def run_service():
         service_cmd_key_list=SERVICE_CMD_KEY_LIST,
         pub_event_list=PUB_EVENT_LIST,
         service_details=SERVICE_DETAILS,
+        qos_ranker_class=QOS_RANKER_CLASS,
         stream_factory=stream_factory,
         logging_level=LOGGING_LEVEL,
         tracer_configs=tracer_configs

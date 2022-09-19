@@ -1,6 +1,6 @@
 import os
 
-from decouple import config
+from decouple import config, Csv
 
 SOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SOURCE_DIR)
@@ -12,23 +12,30 @@ TRACER_REPORTING_HOST = config('TRACER_REPORTING_HOST', default='localhost')
 TRACER_REPORTING_PORT = config('TRACER_REPORTING_PORT', default='6831')
 
 SERVICE_STREAM_KEY = config('SERVICE_STREAM_KEY')
+QOS_RANKER_CLASS = config('QOS_RANKER_CLASS')
+
+DEFAULT_QOS_CRITERIA = 'energy_consumption,throughput,accuracy'
+
+QOS_CRITERIA = config('QOS_CRITERIA', default=DEFAULT_QOS_CRITERIA, cast=Csv())
+
+USER_TO_SYS_QOS_MAP = {
+    'latency': 'throughput'
+}
 
 
-# LISTEN_EVENT_TYPE_SOME_EVENT_TYPE = config('LISTEN_EVENT_TYPE_SOME_EVENT_TYPE')
-# LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE = config('LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE')
+LISTEN_EVENT_TYPE_QUERY_CREATED = config('LISTEN_EVENT_TYPE_QUERY_CREATED')
 
 SERVICE_CMD_KEY_LIST = [
-    # LISTEN_EVENT_TYPE_SOME_EVENT_TYPE,
-    # LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE,
+    LISTEN_EVENT_TYPE_QUERY_CREATED,
 ]
 
-# PUB_EVENT_TYPE_NEW_EVENT_TYPE = config('PUB_EVENT_TYPE_NEW_EVENT_TYPE')
+PUB_EVENT_TYPE_QUERY_SERVICES_QOS_CRITERIA_RANKED = config('PUB_EVENT_TYPE_QUERY_SERVICES_QOS_CRITERIA_RANKED')
 
 PUB_EVENT_LIST = [
-    # PUB_EVENT_TYPE_NEW_EVENT_TYPE,
+    PUB_EVENT_TYPE_QUERY_SERVICES_QOS_CRITERIA_RANKED,
 ]
 
-# Only for Content Extraction services 
+# Only for Content Extraction services
 SERVICE_DETAILS = None
 
 # Example of how to define SERVICE_DETAILS from env vars:

@@ -6,8 +6,8 @@ from event_service_utils.streams.redis import RedisStreamFactory
 from query_planner.conf import (
     REDIS_ADDRESS,
     REDIS_PORT,
-    SERVICE_STREAM_KEY,
-    # LISTEN_EVENT_TYPE_SOME_EVENT_TYPE
+    LISTEN_EVENT_TYPE_QUERY_CREATED,
+    PUB_EVENT_TYPE_QUERY_SERVICES_QOS_CRITERIA_RANKED
 )
 
 
@@ -24,25 +24,32 @@ def new_msg(event_data):
 def main():
     stream_factory = RedisStreamFactory(host=REDIS_ADDRESS, port=REDIS_PORT)
     # for checking published events output
-    # new_event_type_cmd = stream_factory.create(PUB_EVENT_TYPE_NEW_EVENT_TYPE, stype='streamOnly')
+    qos_ranked_cmd = stream_factory.create(PUB_EVENT_TYPE_QUERY_SERVICES_QOS_CRITERIA_RANKED, stype='streamOnly')
 
     # for testing sending msgs that the service listens to:
-    # import ipdb; ipdb.set_trace()
-    # some_event_type_cmd = stream_factory.create(LISTEN_EVENT_TYPE_SOME_EVENT_TYPE, stype='streamOnly')
-    # some_event_type_cmd.write_events(
-    #     new_msg(
-    #         {
-    #             'some': 'thing',
-    #             'other': 'thing',
-    #         }
-    #     )
-    # )
-    # import ipdb; ipdb.set_trace()
+    import ipdb; ipdb.set_trace()
+    query_created_cmd = stream_factory.create(LISTEN_EVENT_TYPE_QUERY_CREATED, stype='streamOnly')
+    query_created_cmd.write_events(
+        new_msg(
+            {
+                'query_id': 'somequery',
+                'parsed_query': {
+                    'qos_policies': {
+                        'energy_consumption': '10',
+                        'latency': '9',
+                        'accuracy': '5'
+                    },
+                },
+                'service_chain': ['ObjectDetection', 'ColorDetection'],
+            }
+        )
+    )
+    import ipdb; ipdb.set_trace()
 
     # read published events output
-    # events = new_event_type_cmd.read_events()
-    # print(list(events))
-    # import ipdb; ipdb.set_trace()
+    events = qos_ranked_cmd.read_events()
+    print(list(events))
+    import ipdb; ipdb.set_trace()
 
 
 if __name__ == '__main__':

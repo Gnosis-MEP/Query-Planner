@@ -10,6 +10,7 @@ from query_planner.conf import (
     SERVICE_CMD_KEY_LIST,
     SERVICE_DETAILS,
     PUB_EVENT_LIST,
+    QOS_RANKER_CLASS
 )
 
 
@@ -19,6 +20,7 @@ class TestQueryPlanner(MockedEventDrivenServiceStreamTestCase):
         'service_cmd_key_list': SERVICE_CMD_KEY_LIST,
         'pub_event_list': PUB_EVENT_LIST,
         'service_details': SERVICE_DETAILS,
+        'qos_ranker_class': QOS_RANKER_CLASS,
         'logging_level': 'ERROR',
         'tracer_configs': {'reporting_host': None, 'reporting_port': None},
     }
