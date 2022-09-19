@@ -35,12 +35,15 @@ def main():
                 'query_id': 'somequery',
                 'parsed_query': {
                     'qos_policies': {
-                        'energy_consumption': '10',
-                        'latency': '9',
-                        'accuracy': '5'
+                        # 'energy_consumption': '10',
+                        # 'latency': '9',
+                        # 'accuracy': '5'
+                        'energy_consumption': 'high_importance',
+                        'latency': 'medium_importance',
+                        'accuracy': 'medium_low_importance'
                     },
                 },
-                'service_chain': ['ObjectDetection', 'ColorDetection'],
+                'service_chain': ['SomeService', 'AnotherService'],
             }
         )
     )

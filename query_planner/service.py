@@ -12,6 +12,7 @@ from query_planner.conf import (
 )
 
 from query_planner.qos_rankers.crisp import CrispQoSRanker
+from query_planner.qos_rankers.fuzzy import FuzzyQoSRanker
 
 
 class QueryPlanner(BaseEventDrivenCMDService):
@@ -37,7 +38,7 @@ class QueryPlanner(BaseEventDrivenCMDService):
         self.qos_ranker_class = qos_ranker_class
         self.available_qos_rankers = {
             'Crisp': CrispQoSRanker,
-            'Fuzzy': CrispQoSRanker
+            'Fuzzy': FuzzyQoSRanker
         }
         self.setup_ranker()
 
