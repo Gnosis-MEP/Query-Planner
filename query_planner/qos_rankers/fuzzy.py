@@ -10,7 +10,7 @@ class FuzzyQoSRanker(QoSRankerBase):
             'medium_high_importance': (0.5, 0.7, 0.9),
             'medium_importance': (0.3, 0.5, 0.7),
             'medium_low_importance': (0.1, 0.3, 0.5),
-            'low_importance': (0.0, 0.1, 0.3),
+            'low_importance': (0.1, 0.1, 0.3),  # no zero to avoid division by zero issue
         }
 
     def get_qos_rank(self, query):
